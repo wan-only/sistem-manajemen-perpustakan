@@ -17,7 +17,7 @@ class kategoriController extends Controller
         $kategori = kategori::create($validated);
 
         return response()->json([
-            "status" => "success",
+            "status" => "successs",
             'message' => 'Kategori berhasil dibuat',
             "data" => $kategori
         ], 201);

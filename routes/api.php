@@ -8,11 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register',[userController::class,'register']);
 Route::post('/login',[userController::class,'login']);
 
-Route::post('/kategori',[kategoriController::class,'create']);
-Route::get('/kategori',[kategoriController::class,'getAll']);
-Route::get('/kategori/{id}',[kategoriController::class,'getId']);
-Route::put('/kategori/{id}',[kategoriController::class,'update']);
-Route::delete('/kategori/{id}',[kategoriController::class,'delete']);
+Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/buku',[bukuController::class,'create']);
 Route::get('/buku',[bukuController::class,'getAll']);
@@ -32,3 +28,10 @@ Route::get('/pengembalian/{id}',[PengembalianController::class,'getId']);
 Route::put('/pengembalian/{id}',[PengembalianController::class,'update']); 
 Route::delete('/pengembalian/{id}',[PengembalianController::class,'delete']);
 
+Route::post('/kategori',[kategoriController::class,'create']);
+Route::get('/kategori',[kategoriController::class,'getAll']);
+Route::get('/kategori/{id}',[kategoriController::class,'getId']);
+Route::put('/kategori/{id}',[kategoriController::class,'update']);
+Route::delete('/kategori/{id}',[kategoriController::class,'delete']);
+
+});

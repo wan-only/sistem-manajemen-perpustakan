@@ -16,14 +16,12 @@ class userController extends Controller
         $request->validate([
             'name' => 'required|min:3|max:50',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'role' => 'nullable|in:admin,user'
+            'password' => 'required|min:6'
         ]);
         $data = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role ?? 'user',
+            'password' => Hash::make($request->password)
         ];
         User::create($data);
         return response()->json([

@@ -1,0 +1,2294 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "PERPUS",
+        "version": "1.0.0",
+        "description": ""
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "paths": {
+        "/api/peminjaman": {
+            "parameters": [],
+            "post": {
+                "tags": ["Peminjaman"],
+                "summary": "Create Data Peminjaman",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "user_id",
+                                    "buku_id",
+                                    "tanggal_peminjaman",
+                                    "tanggal_kembali",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "buku_id": {
+                                        "type": "integer",
+                                        "example": 8
+                                    },
+                                    "tanggal_peminjaman": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-06-19"
+                                    },
+                                    "tanggal_kembali": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-06-25"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "Terpinjam"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil membuat data peminjaman",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori berhasil dibuat"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "buku_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_name": {
+                                                    "type": "string",
+                                                    "example": "WawanSuranto"
+                                                },
+                                                "judul_buku": {
+                                                    "type": "string",
+                                                    "example": "KudaLumping"
+                                                },
+                                                "tanggal_peminjaman": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-06-19"
+                                                },
+                                                "tanggal_kembali": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-06-25"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "Terpinjam"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "401": {
+                            "description": "Unauthenticated",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "example": "Unauthenticated."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Peminjaman"],
+                "summary": "Get ALL",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "example": "application/json",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data berhasil diambil"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "buku_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "tanggal_peminjaman": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-10-25"
+                                                    },
+                                                    "tanggal_kembali": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-10-25"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "Dipinjam"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/peminjaman/{id}": {
+            "parameters": [],
+            "get": {
+                "tags": ["Peminjaman"],
+
+                "summary": "Get By ID",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data berhasil diambil"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "buku_id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "tanggal_peminjaman": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-06-19"
+                                                },
+                                                "tanggal_kembali": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-06-25"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "Terpinjam"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:13:33.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:13:33.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Peminjaman"],
+                "summary": "Delete By ID",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "205": {
+                        "description": "205",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori berhasil dihapus"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Peminjaman"],
+                "summary": "Update",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori berhasil diupdate"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "buku_id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "tanggal_peminjaman": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-10-19"
+                                                },
+                                                "tanggal_kembali": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-10-25"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "Terpinjam"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:13:33.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:16:48.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "buku_id": {
+                                        "type": "integer"
+                                    },
+                                    "tanggal_peminjaman": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "tanggal_kembali": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pengembalian": {
+            "parameters": [],
+            "post": {
+                "tags": ["Pengembalian"],
+                "summary": "Create Data Pengembalian",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "example": "application/json",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pengembalian berhasil disimpan"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "peminjaman_id": {
+                                                    "type": "integer",
+                                                    "example": "2"
+                                                },
+                                                "tanggal_kembali": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-06-19"
+                                                },
+                                                "denda": {
+                                                    "type": "integer",
+                                                    "example": "50000"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "401",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Create Data Pengembalian",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "peminjaman_id": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "tanggal_kembali": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "denda": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "peminjaman_id": {
+                                        "type": "integer"
+                                    },
+                                    "tanggal_kembali": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "denda": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Pengembalian"],
+                "summary": "Get ALL",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "example": "application/json",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Daftar Pengembalian"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pengembalian/{id}": {
+            "parameters": [],
+            "get": {
+                "tags": ["Pengembalian"],
+                "summary": "Get By ID",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pengembalian ditemukan"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "peminjaman_id": {
+                                                    "type": "integer",
+                                                    "example": "2"
+                                                },
+                                                "tanggal_kembali": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-06-19"
+                                                },
+                                                "denda": {
+                                                    "type": "integer",
+                                                    "example": "50000"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:25:48.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:25:48.000000Z"
+                                                },
+                                                "peminjaman": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": "2"
+                                                        },
+                                                        "user_id": {
+                                                            "type": "integer",
+                                                            "example": "1"
+                                                        },
+                                                        "buku_id": {
+                                                            "type": "integer",
+                                                            "example": "1"
+                                                        },
+                                                        "tanggal_peminjaman": {
+                                                            "type": "string",
+                                                            "format": "date",
+                                                            "example": "2025-06-19"
+                                                        },
+                                                        "tanggal_kembali": {
+                                                            "type": "string",
+                                                            "format": "date",
+                                                            "example": "2025-06-25"
+                                                        },
+                                                        "status": {
+                                                            "type": "string",
+                                                            "example": "Terpinjam"
+                                                        },
+                                                        "created_at": {
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2025-06-17T07:25:02.000000Z"
+                                                        },
+                                                        "updated_at": {
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2025-06-17T07:25:02.000000Z"
+                                                        },
+                                                        "user": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": "1"
+                                                                },
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "example": "WawanSuranto"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string",
+                                                                    "format": "email",
+                                                                    "example": "Wawan123@gmail.com"
+                                                                },
+                                                                "email_verified_at": {
+                                                                    "nullable": true
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "example": "2025-06-17T06:14:02.000000Z"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "example": "2025-06-17T06:14:02.000000Z"
+                                                                }
+                                                            }
+                                                        },
+                                                        "buku": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": "1"
+                                                                },
+                                                                "judul": {
+                                                                    "type": "string",
+                                                                    "example": "KudaLumping"
+                                                                },
+                                                                "penulis": {
+                                                                    "type": "string",
+                                                                    "example": "wanto"
+                                                                },
+                                                                "penerbit": {
+                                                                    "type": "string",
+                                                                    "example": "soku"
+                                                                },
+                                                                "tahun_penerbit": {
+                                                                    "type": "string",
+                                                                    "format": "utc-millisec",
+                                                                    "example": "1945"
+                                                                },
+                                                                "stok": {
+                                                                    "type": "integer",
+                                                                    "example": "10"
+                                                                },
+                                                                "kategori_id": {
+                                                                    "type": "integer",
+                                                                    "example": "4"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "example": "2025-06-17T07:07:46.000000Z"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "example": "2025-06-17T07:11:34.000000Z"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Pengembalian"],
+                "summary": "Delete",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pengembalian berhasil dihapus"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Pengembalian"],
+                "summary": "Update",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pengembalian berhasil diupdate"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "peminjaman_id": {
+                                                    "type": "integer",
+                                                    "example": "2"
+                                                },
+                                                "tanggal_kembali": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-06-19"
+                                                },
+                                                "denda": {
+                                                    "type": "integer",
+                                                    "example": "25000"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:25:48.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:35:09.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "pengembalian_id": {
+                                        "type": "integer"
+                                    },
+                                    "tanggal_kembali": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "denda": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "parameters": [],
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Login",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "example": "application/json",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login berhasil"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "WawanSuranto"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "Wawan123@gmail.com"
+                                                },
+                                                "email_verified_at": {
+                                                    "nullable": true
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T06:14:02.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T06:14:02.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "422",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "password": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "utc-millisec"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "parameters": [],
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Register",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "example": "application/json",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pendaftaran berhasil"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "WawanSuranto"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "Wawan123@gmail.com"
+                                                },
+                                                "password": {
+                                                    "type": "string"  
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "422",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "password": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "utc-millisec"
+                                    },
+                                    "role": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/buku": {
+            "parameters": [],
+            "post": {
+                "tags": ["Buku"],
+                "summary": "Create Data Buku",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "example": "application/json",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "buku berhasil ditambahkan"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "judul": {
+                                                    "type": "string",
+                                                    "example": "PentilKedelep"
+                                                },
+                                                "penulis": {
+                                                    "type": "string",
+                                                    "example": "wanto"
+                                                },
+                                                "penerbit": {
+                                                    "type": "string",
+                                                    "example": "soku"
+                                                },
+                                                "tahun_penerbit": {
+                                                    "type": "integer",
+                                                    "example": "1945"
+                                                },
+                                                "stok": {
+                                                    "type": "integer",
+                                                    "example": "100"
+                                                },
+                                                "kategori_id": {
+                                                    "type": "integer",
+                                                    "example": "4"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:07:46.000000Z"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:07:46.000000Z"
+                                                },
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "422",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "kategori_id": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "judul": {
+                                        "type": "string"
+                                    },
+                                    "penulis": {
+                                        "type": "string"
+                                    },
+                                    "penerbit": {
+                                        "type": "string"
+                                    },
+                                    "tahun_penerbit": {
+                                        "type": "integer"
+                                    },
+                                    "stok": {
+                                        "type": "integer"
+                                    },
+                                    "kategori_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Buku"],
+                "summary": "Get ALL",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "example": "application/json",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data buku berhasil diambil"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "judul": {
+                                                        "type": "string",
+                                                        "example": "PentilKedelep"
+                                                    },
+                                                    "penulis": {
+                                                        "type": "string",
+                                                        "example": "wanto"
+                                                    },
+                                                    "penerbit": {
+                                                        "type": "string",
+                                                        "example": "soku"
+                                                    },
+                                                    "tahun_penerbit": {
+                                                        "type": "string",
+                                                        "format": "utc-millisec",
+                                                        "example": "1945"
+                                                    },
+                                                    "stok": {
+                                                        "type": "integer",
+                                                        "example": "100"
+                                                    },
+                                                    "kategori_id": {
+                                                        "type": "integer",
+                                                        "example": "4"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-06-17T07:07:46.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-06-17T07:07:46.000000Z"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/buku/{id}": {
+            "parameters": [],
+            "get": {
+                "tags": ["Buku"],
+                "summary": "Get By ID",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "buku berhasil ditemukan"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "judul": {
+                                                    "type": "string",
+                                                    "example": "PentilKedelep"
+                                                },
+                                                "penulis": {
+                                                    "type": "string",
+                                                    "example": "wanto"
+                                                },
+                                                "penerbit": {
+                                                    "type": "string",
+                                                    "example": "soku"
+                                                },
+                                                "tahun_penerbit": {
+                                                    "type": "string",
+                                                    "format": "utc-millisec",
+                                                    "example": "1945"
+                                                },
+                                                "stok": {
+                                                    "type": "integer",
+                                                    "example": "100"
+                                                },
+                                                "kategori_id": {
+                                                    "type": "integer",
+                                                    "example": "4"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:07:46.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:07:46.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Buku"],
+                "summary": "Delete By ID",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "buku berhasil dihapus"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "401 Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Buku"],
+                "summary": "Update",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "daftar buku berhasil diupdate"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "judul": {
+                                                    "type": "string",
+                                                    "example": "KudaLumping"
+                                                },
+                                                "penulis": {
+                                                    "type": "string",
+                                                    "example": "wanto"
+                                                },
+                                                "penerbit": {
+                                                    "type": "string",
+                                                    "example": "soku"
+                                                },
+                                                "tahun_penerbit": {
+                                                    "type": "integer",
+                                                    "example": "1945"
+                                                },
+                                                "stok": {
+                                                    "type": "integer",
+                                                    "example": "10"
+                                                },
+                                                "kategori_id": {
+                                                    "type": "integer",
+                                                    "example": "4"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:07:46.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:11:34.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "judul": {
+                                        "type": "string"
+                                    },
+                                    "penulis": {
+                                        "type": "string"
+                                    },
+                                    "penerbit": {
+                                        "type": "string"
+                                    },
+                                    "tahun_penerbit": {
+                                        "type": "integer"
+                                    },
+                                    "stok": {
+                                        "type": "integer"
+                                    },
+                                    "kategori_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/kategori": {
+            "parameters": [],
+            "post": {
+                "tags": ["Kategori"],
+                "summary": "Create Data Kategori",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "example": "application/json",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Succes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "successs"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori berhasil dibuat"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "CeritaCeritaan"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T06:56:50.000000Z"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T06:56:50.000000Z"
+                                                },
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "2"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "402",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Kategori"],
+                "summary": "Get ALL",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "required": false,
+                        "example": "application/json",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data kategori berhasil diambil"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "CeritaCeritaan"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-06-17T06:56:07.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-06-17T06:56:07.000000Z"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/kategori/{id}": {
+            "parameters": [],
+            "get": {
+                "tags": ["Kategori"],
+                "summary": "Get By ID",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori berhasil ditemukan"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "3"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Bokep"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:01:47.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:01:47.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Kategori"],
+                "summary": "Delete By ID",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori berhasil dihapus"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Kategori"],
+                "summary": "Update",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori berhasil diupdate"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "4"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Gondoll"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:04:56.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-06-17T07:05:19.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Login Register User"
+        },
+        {
+            "name": "Kategori",
+            "description": "Login Register User"
+        },
+        {
+            "name": "Buku",
+            "description": "Login Register User"
+        },
+        {
+            "name": "Peminjaman",
+            "description": "Login Register User"
+        },
+        {
+            "name": "Pengembalian",
+            "description": "Login Register User"
+        }
+    ]
+}
